@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <h2 class="title">rrweb demo</h2>
+      <div class="canvas-wrapper">
+        <canvas id="canvas"></canvas>
+        <!-- <canvas id="myCanvas"></canvas> -->
+      </div>
+      <div class="buttons countBts">
+        <div class="count-wrapper">count: <span class="count">1</span></div>
+        <button>count+1</button>
+        <button>count-1</button>
+      </div>
+    </div>
+    <hr />
+    <div class="split">
+      <h4 class="title">
+        -----------------------rrweb录制与回放-----------------------
+      </h4>
+      <div class="buttons rrwebBts">
+        <button>开始录制</button>
+        <button>停止录制</button>
+        <button>本地回放</button>
+        <div class="replayContainer"></div>
+      </div>
+    </div>
+    <hr />
+    <div class="split">
+      <h4 class="title">
+        -----------------------上传与下载-----------------------
+      </h4>
+      <div class="buttons serverBts">
+        <button class="upload">上传服务器</button>
+        <button class="uploadReplay">获取服务器数据</button>
+      </div>
+    </div>
+    <hr />
+    <div class="split">
+      <h4 class="title">
+        -----------------------mp4录制与导出-----------------------
+      </h4>
+      <div class="buttons replayBts">
+        <button>捕获屏幕</button>
+        <button class="canvasBeginBt">video录制开始</button>
+        <button class="canvasEndBt">video录制结束</button>
+        <button class="download">导出视频(格式mp4)</button>
+        <button>自动</button>
+      </div>
+    </div>
+  </body>
+</html>

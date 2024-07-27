@@ -1,0 +1,48 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 100vw;
+}
+.buttons button {
+  margin: 0 10px;
+  height: 40px;
+  line-height: 40px;
+  background-color: tomato;
+  border-radius: 20px;
+  padding: 0 40px;
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+.title {
+  text-align: center;
+}
+.canvas-wrapper {
+  text-align: center;
+}
+.split {
+  margin-top: 20px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+h2 {
+  height: 50px;
+  line-height: 50px;
+}
+#canvas {
+  border: 10px solid red;
+}
+.replayContainer {
+  top: 50px;
+  position: absolute;
+}
