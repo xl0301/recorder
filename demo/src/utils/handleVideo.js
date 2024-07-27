@@ -1,4 +1,4 @@
-import { uploadVideoApi, fetchVideoApi } from "../../api/index";
+import { uploadVideoApi, fetchVideoApi } from "../api/index";
 const uploadVideo = async (events) => {
   if (!events) {
     return;

@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "es6",
+    "target": "es5",
+    "allowJs": true,
+    "importsNotUsedAsValues": "error",
+    "suppressImplicitAnyIndexErrors": true,
+    "isolatedModules": true,
+    /**
+      To have warnings/errors of the Svelte compiler at the correct position,
+      enable source maps by default.
+     */
+    "sourceMap": true,
+    /** Requests the runtime types from the svelte modules by default. Needed for TS files or else you get errors. */
+    "types": ["svelte"],
+
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}

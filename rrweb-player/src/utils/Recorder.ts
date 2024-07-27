@@ -37,6 +37,7 @@ class Recorder {
   isStop: boolean;
   ctx: any;
   isFullScreen: boolean;
+  timer: any;
   constructor(config: Config) {
     this.crops = config?.crops || { startX: 0, startY: 0, width: 0, height: 0 };
     this.selector = config?.selector;
@@ -55,6 +56,7 @@ class Recorder {
     this.isStartRecording = false;
     this.isStop = false;
     this.ctx = this.canvasElement.getContext("2d");
+    this.timer = null;
   };
   handleCrops() {
     const selector = this.selector;
@@ -89,13 +91,10 @@ class Recorder {
     try {
       this.stream = await navigator.mediaDevices.getDisplayMedia({
         video: {
-          frameRate: { max: 240 },
+          frameRate: { max: 120 },
           //@ts-ignore
           displaySurface: "window",
         },
-        surfaceSwitching: "include",
-        selfBrowserSurface: "exclude",
-        systemAudio: "exclude",
       });
       this.isSharingScreen = true;
       this.transformVideoStream();
@@ -140,7 +139,7 @@ class Recorder {
       width,
       height
     );
-    requestAnimationFrame(this.draw);
+    this.timer = requestAnimationFrame(this.draw);
   };
   /**
    * 处理录制屏幕
@@ -192,12 +191,15 @@ class Recorder {
   handleDataAvailable = (event) => {
     console.log("event", event.data);
     if (event.data && event.data.size > 0) {
-      // console.log(this.recordedBlobs);
       this.recordedBlobs.push(event.data);
     }
   };
 
   stopRecording() {
+    if (this.timer) {
+      cancelAnimationFrame(this.timer);
+      this.timer = null;
+    }
     if (this.isSharingScreen && this.isStartRecording) {
       this.stream.getTracks().forEach((track) => track.stop());
       this.isStop = true;

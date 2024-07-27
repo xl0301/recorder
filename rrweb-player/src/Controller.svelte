@@ -45,6 +45,7 @@
 
   let pauseAt: number | false = false;
   let onPauseHook: () => unknown | undefined = undefined;
+  let onFinishHook: () => unknown | undefined = undefined;
   let loop: {
     start: number;
     end: number;
@@ -310,6 +311,10 @@
         onPauseHook();
         onPauseHook = null;
       }
+      if (onFinishHook) {
+        onFinishHook();
+        onFinishHook = null;
+      }
     });
 
     if (autoPlay) {
@@ -329,10 +334,20 @@
 
   var playTimer = null;
   var endTimer = null;
-  //bug:注意录制时间不要少于1s因为这样会少于定时器的时间
   async function download() {
     const recorder = MainPlayer._recorder;
     const config = MainPlayer._downloadConfig;
+    onFinishHook = async () => {
+      if (isDownload) {
+        await sleep(1000);
+        await recorder.download();
+        recorder.stopRecording();
+        isDownload = false;
+        if (config.isFullScreen) {
+          await dispatch("fullscreen");
+        }
+      }
+    };
     if (playTimer) {
       clearTimeout(playTimer);
       playTimer = null;
@@ -342,32 +357,16 @@
       endTimer = null;
     }
     try {
-      if (playerState === "playing") {
-        replayer.pause();
-        await sleep(500);
-      }
+      pause();
       await recorder.startSharingScreen();
       goto(0);
-      await sleep(1400);
       if (config.isFullScreen) {
         await dispatch("fullscreen");
-        await sleep(500);
       }
       isDownload = true;
+      await sleep(1400);
       await recorder.startRecording();
-      await sleep(1000);
-      replayer.play();
-      replayer.on("finish", async () => {
-        if (isDownload) {
-          await sleep(1000);
-          await recorder.download();
-          recorder.stopRecording();
-          isDownload = false;
-          if (config.isFullScreen) {
-            await dispatch("fullscreen");
-          }
-        }
-      });
+      toggle();
     } catch (error) {
       console.log(error);
       isDownload = false;

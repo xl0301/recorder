@@ -1,11 +1,13 @@
 /**
  * 录制与回放
  */
-import recorder from "../../recorder/src/index";
+import Recorder from "../../rrweb-player/src/utils/Recorder.ts";
+const recorder = new Recorder({ selector: document.querySelector("canvas") });
 const replayBts = document
   .querySelector(".replayBts")
   .querySelectorAll("button");
 replayBts[0].onclick = function (params) {
+  console.log("11", recorder);
   recorder.startSharingScreen();
 };
 replayBts[1].onclick = function (params) {
